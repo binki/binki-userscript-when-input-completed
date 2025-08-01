@@ -1,7 +1,9 @@
 function whenInputCompletedAsync(input, signal, maybeAutoCompleteDelta) {
+  if (!input) throw new Error('input argument required.');
   const inputEventName = 'input';
   const abortEventName = 'abort';
-  const autoCompleteDelta = maybeAutoCompleteDelta || 4;
+  if (maybeAutoCompleteDelta !== undefined && (typeof maybeAutoCompleteDelta !== 'number' || (maybeAutoCompleteDelta|0) !== maybeAutoCompleteDelta || maybeAutoCompleteDelta <= 0)) throw new Error('maybeAutoCompleteDelta must be undefined or a positive integer.');
+  const autoCompleteDelta = maybeAutoCompleteDelta === undefined ? 4 : maybeAutoCompleteDelta;
   return new Promise((resolve, reject) => {
     let lastLength = 0;
     const unsubscribe = () => {
