@@ -2,7 +2,17 @@ Wait for text to be pasted or autocompleted into an input.
 
 For autologin scripts, it is desirable not to interfere with the user’s attempt to manually type into a field. However, if a user pastes or if the browser autofills the field, it is desirable to take some automatic action immediately afterward.
 
-This script implements a simple heuristic of waiting for a specific input element to gain a value without relying on a change event triggered by a blur. It is expected to be generally correct but not perfect, though the possibilty of making this perfect is welcome. For example, this might not yet support detecting input from IME as user-entered.
+This script implements a few simple heuristics of waiting for a specific input element to gain a complete value without relying on a change event triggered by a blur. It is expected to be generally correct but not perfect, though the possibilty of making this perfect is welcome. For example, this might not yet support detecting input from IME as user-entered.
+
+# Heuristics
+
+## Big Change Detection
+
+If the length of the input value changes by more than 1 character at once, the value is presumed to be pasted. The default check requires the input length to increase by at least 4 to count as a paste.
+
+## Max Length Check
+
+If the input has a `max` attribute, the input is assumed complete when this length is reached. This supports hand-typed entry for some TOTP fields, which is common when TOTP is stored on a mobile device but entered on a desktop.
 
 # Usage
 

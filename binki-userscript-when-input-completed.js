@@ -11,7 +11,7 @@ function whenInputCompletedAsync(input, signal, maybeAutoCompleteDelta) {
       if (signal) signal.removeEventListener(abortEventName, abortHandler);
     };
     const inputHandler = () => {
-      if (input.value.length >= autoCompleteDelta && Math.abs(input.value.length - lastLength) >= autoCompleteDelta) {
+      if (input.value.length >= autoCompleteDelta && Math.abs(input.value.length - lastLength) >= autoCompleteDelta || input.value.length === input.maxLength) {
         unsubscribe();
         resolve();
       } else {
